@@ -1,0 +1,13 @@
+.App {
+    max-height: screen;
+    overflow-x: hidden;
+}
+
+.navbar-title {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar-title h4 {
+    margin: 0;
+}

@@ -1,0 +1,72 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f5f9;
+    padding-bottom: 5px;
+
+}
+
+.home-container h1 {
+    font-size: 1.5rem;
+    /* Tailwind: text-2xl */
+    font-weight: bold;
+    /* Tailwind: font-bold */
+    margin-bottom: 1rem;
+    /* Tailwind: mb-4 */
+}
+
+.home-forms {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    /* Tailwind: gap-12 */
+}
+
+.search-form,
+.filter-form {
+    background-color: white;
+    /* Tailwind: bg-white */
+    padding: 24px;
+    /* Tailwind: p-6 */
+    border-radius: 8px;
+    /* Tailwind: rounded */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Tailwind: shadow-md */
+    margin-bottom: 1.5rem;
+    /* Tailwind: mb-6 */
+}
+
+.cart-container {
+    margin-top: 1.5rem;
+    /* Tailwind: mt-6 */
+}
+
+.cart-container h2 {
+    font-size: 1.25rem;
+    /* Tailwind: text-xl */
+    font-weight: bold;
+    /* Tailwind: font-bold */
+    margin-bottom: 1rem;
+    /* Tailwind: mb-4 */
+}
+
+.cart-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cart-container p {
+    font-weight: bold;
+    /* Tailwind: font-bold */
+}
+
+.flex-items-center-gap {
+    display: flex;
+    /* Tailwind: flex */
+    align-items: center;
+    /* Tailwind: items-center */
+    gap: 3rem;
+    /* Tailwind: gap-12 */
+}

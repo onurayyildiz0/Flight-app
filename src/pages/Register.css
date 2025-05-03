@@ -1,0 +1,27 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.register-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f5f9;
+    /* Tailwind: bg-slate-100 */
+}
+
+.register-form {
+    background-color: white;
+    /* Tailwind: bg-white */
+    padding: 24px;
+    /* Tailwind: p-6 */
+    border-radius: 8px;
+    /* Tailwind: rounded */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Tailwind: shadow-md */
+    width: 384px;
+    /* Tailwind: w-96 */
+}

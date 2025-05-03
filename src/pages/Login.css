@@ -1,0 +1,40 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f1f5f9;
+    /* Tailwind: bg-slate-100 */
+}
+
+.login-container h1 {
+    font-size: 1.5rem;
+    /* Tailwind: text-2xl */
+    font-weight: bold;
+    /* Tailwind: font-bold */
+    margin-bottom: 1rem;
+    /* Tailwind: mb-4 */
+}
+
+.login-form {
+    background-color: white;
+    /* Tailwind: bg-white */
+    padding: 24px;
+    /* Tailwind: p-6 */
+    border-radius: 8px;
+    /* Tailwind: rounded */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Tailwind: shadow-md */
+    width: 384px;
+    /* Tailwind: w-96 */
+}
+
+.login-link {
+    margin-top: 1rem;
+    /* Tailwind: mt-4 */
+    color: #3b82f6;
+    /* Tailwind: text-blue-500 */
+    text-decoration: underline;
+    cursor: pointer;
+}

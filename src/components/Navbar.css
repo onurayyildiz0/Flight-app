@@ -1,0 +1,52 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #38bdf8;
+
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    padding: 16px 48px;
+
+}
+
+.navbar h4 {
+    color: white;
+
+}
+
+.navbar .actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    cursor: pointer;
+
+}
+
+.avatar {
+    background-color: #ef4444;
+    /* Tailwind: bg-red-500 */
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.navbar-title {
+    text-decoration: none !important;
+
+    color: inherit;
+
+}
+
+.navbar-title:hover,
+.navbar-title:focus,
+.navbar-title:active {
+    text-decoration: none !important;
+
+}
