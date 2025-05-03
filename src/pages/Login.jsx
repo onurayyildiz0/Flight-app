@@ -2,30 +2,35 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
 import './Login.css';
+import { fetchUsers } from '../services/userService';
 
-function Login({ setIsLoggedIn, mockUsers }) {
+function Login({ setIsLoggedIn }) {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
+        const { username, password } = values;
         setLoading(true);
 
-        const isValidUser = mockUsers.some(
-            (user) =>
-                user.username === values.username &&
-                user.password === values.password
-        );
+        try {
+            const users = await fetchUsers(); // Kullanıcıları API'den al
+            const user = users.find(
+                (u) => u.name === username && u.password === password // Kullanıcı adı ve şifreyi kontrol et
+            );
 
-        setTimeout(() => {
-            setLoading(false);
-            if (isValidUser) {
+            if (user) {
                 message.success('Login successful!');
-                setIsLoggedIn(true); // Kullanıcı oturumunu güncelle
-                navigate('/'); // Ana sayfaya yönlendir
+                setIsLoggedIn(true); // Kullanıcıyı giriş yapmış olarak işaretle
+                localStorage.setItem('loggedInRowId', user.row_id); // Kullanıcının row_id'sini kaydet
+                navigate('/pay'); // Ödeme sayfasına yönlendir
             } else {
                 message.error('Invalid username or password.');
             }
-        }, 1000);
+        } catch (error) {
+            message.error('An error occurred while logging in.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

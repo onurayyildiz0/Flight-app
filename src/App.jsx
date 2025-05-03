@@ -5,15 +5,15 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import PaymentPage from './pages/PaymentPage';
 import Navbar from './components/Navbar';
+import AddFlight from './pages/AddFlight';
+import ManageFlights from './pages/ManageFlights';
+import ProtectedRoute from './pages/ProtectedRoute';
 import './App.css';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [mockUsers, setMockUsers] = useState([
-    { username: 'user1', password: 'password1', email: 'user1@example.com' },
-    { username: 'user2', password: 'password2', email: 'user2@example.com' },
-  ]);
 
   return (
     <div className="App">
@@ -23,13 +23,20 @@ function App() {
           <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
           <Route
             path="/login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} mockUsers={mockUsers} />}
+            element={<Login setIsLoggedIn={setIsLoggedIn} />}
           />
+          <Route path="/register" element={<Register />} />{/* Kayıt sayfası */}
           <Route
-            path="/register"
-            element={<Register setMockUsers={setMockUsers} mockUsers={mockUsers} />}
-          />
-          <Route path="/pay" element={<PaymentPage />} />
+            path="/pay"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <PaymentPage />
+              </ProtectedRoute>
+            }
+          /> {/* Ödeme sayfası */}
+          <Route path="/add-flight" element={<AddFlight />} />{/*Uçuş ekleme sayfası */}
+          <Route path="/manage-flights" element={<ManageFlights />} />{/*Uçakları listeleme ve uçuşları silme sayfası */}
+
         </Routes>
       </Router>
 

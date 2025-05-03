@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { Button, Form, Input, Select, DatePicker, Radio, Slider, Modal, List } from 'antd';
 import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
+import { getFlights } from '../services/flightService';
 
 
 const { Option } = Select;
@@ -11,6 +12,7 @@ const { Option } = Select;
 function Home({ isLoggedIn }) {
     const navigate = useNavigate();
 
+    const [flights, setFlights] = useState([]);
     const [searchResults, setSearchResults] = useState([]);
     const [filteredResults, setFilteredResults] = useState([]);
     const [selectedFlight, setSelectedFlight] = useState(null);
@@ -18,44 +20,26 @@ function Home({ isLoggedIn }) {
     const [seatModalVisible, setSeatModalVisible] = useState(false);
     const [cart, setCart] = useState([]);
 
-    const mockFlights = [
-        {
-            id: 1,
-            departure: 'Istanbul',
-            arrival: 'Ankara',
-            date: '2023-05-10',
-            airline: 'Turkish Airlines',
-            price: 500,
-            duration: 90,
-            isDirect: true,
-            seats: [
-                { seatNumber: '1A', isAvailable: true, price: 50 },
-                { seatNumber: '1B', isAvailable: false, price: 50 },
-                { seatNumber: '1C', isAvailable: true, price: 50 },
-            ],
-        },
-        {
-            id: 2,
-            departure: 'Istanbul',
-            arrival: 'Izmir',
-            date: '2023-05-11',
-            airline: 'Pegasus Airlines',
-            price: 400,
-            duration: 120,
-            isDirect: false,
-            seats: [
-                { seatNumber: '2A', isAvailable: true, price: 40 },
-                { seatNumber: '2B', isAvailable: true, price: 40 },
-                { seatNumber: '2C', isAvailable: false, price: 40 },
-            ],
-        },
-    ];
+    useEffect(() => {
+        // Uçuş verilerini API'den al
+        const fetchFlights = async () => {
+            try {
+                const data = await getFlights();
+                setFlights(data);
+            } catch (error) {
+                message.error('An error occurred while fetching flights.');
+            }
+        };
+
+        fetchFlights();
+    }, []);
+
 
     const onSearch = (values) => {
         console.log('Search Criteria:', values);
 
         // Temel arama kriterlerine göre mockFlights dizisini filtreleme
-        const results = mockFlights.filter((flight) => {
+        const results = flights.filter((flight) => {
             const matchesDeparture = flight.departure.toLowerCase() === values.departure.toLowerCase();
             const matchesArrival = flight.arrival.toLowerCase() === values.arrival.toLowerCase();
             const matchesDate = flight.date === values.date.format('YYYY-MM-DD');
@@ -72,7 +56,7 @@ function Home({ isLoggedIn }) {
     const onFilter = (values) => {
         console.log('Filter Criteria:', values);
 
-        const results = mockFlights.filter((flight) => {
+        const results = flights.filter((flight) => {
             const matchesDirect = values.isDirect === undefined || flight.isDirect === values.isDirect;
             const matchesPrice = values.price === undefined || flight.price <= values.price;
             const matchesDuration = values.duration === undefined || flight.duration <= values.duration;
@@ -120,13 +104,14 @@ function Home({ isLoggedIn }) {
             setCart(cart.filter((item) => item.seatNumber !== selectedSeat.seatNumber));
         }
 
+        const totalPrice = selectedFlight.price + seat.price; // Uçak fiyatı + koltuk fiyatı
+
         setSelectedSeat(seat);
-        setCart([...cart, { seatNumber: seat.seatNumber, price: seat.price }]);
+        setCart([...cart, { seatNumber: seat.seatNumber, price: totalPrice }]); // Toplam fiyatı sepete ekle
         setSeatModalVisible(false);
     };
-
     const onRemoveSeat = (seatNumber) => {
-        // Seçilen koltuğu sepetten kaldır
+        //Bu fonksiyon, sepetten koltuk kaldırma işlemini gerçekleştirir.!koltuk eklemedeki kaldırma işlemi değil
         setCart(cart.filter((item) => item.seatNumber !== seatNumber));
         message.info(`Seat ${seatNumber} has been removed from the cart.`);
     };
@@ -253,20 +238,20 @@ function Home({ isLoggedIn }) {
                         {cart.map((item, index) => (
                             <li key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                 <span>
-                                    Seat: {item.seatNumber}, Price: ${item.price}
+                                    Seat: {item.seatNumber}, Total Price: ${item.price}
                                 </span>
                                 <Button
                                     type="text"
                                     danger
                                     onClick={() => onRemoveSeat(item.seatNumber)}
                                 >
-                                    Cancel
+                                    Remove
                                 </Button>
                             </li>
                         ))}
                     </ul>
                     <p>
-                        Total: ${cart.reduce((total, item) => total + item.price, 0)}
+                        Grand Total: ${cart.reduce((total, item) => total + item.price, 0)}
                     </p>
                     <Button type="primary" onClick={onProceedToPayment}>
                         Proceed to Payment

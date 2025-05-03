@@ -1,29 +1,33 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Input, message } from 'antd';
+import { fetchUsers, addUser } from '../services/userService';
 import './Register.css';
 
-function Register({ setMockUsers, mockUsers }) {
+function Register() {
     const navigate = useNavigate();
 
-    const onFinish = (values) => {
-        // Yeni kullanıcıyı mockUsers dizisine ekle
-        const newUser = {
-            username: values.username,
-            password: values.password,
-            email: values.email,
-        };
+    const onFinish = async (values) => {
+        try {
+            // Kullanıcıları API'den al
+            const users = await fetchUsers();
 
-        // Kullanıcı zaten varsa hata mesajı göster
-        const isUserExists = mockUsers.some((user) => user.email === values.email);
-        if (isUserExists) {
-            message.error('A user with this email already exists.');
-            return;
+            // Kullanıcı zaten varsa hata mesajı göster
+            const isUserExists = users.some((user) => user.email === values.email);
+            if (isUserExists) {
+                message.error('A user with this email already exists.');
+                return;
+            }
+
+            // Yeni kullanıcıyı API'ye gönder
+            const newUser = [values.username, values.password, values.email];
+            await addUser(newUser);
+
+            message.success('Registration successful! You can now log in.');
+            navigate('/login'); // Giriş sayfasına yönlendir
+        } catch (error) {
+            message.error('An error occurred while registering.');
         }
-
-        setMockUsers([...mockUsers, newUser]); // Kullanıcıyı listeye ekle
-        message.success('Registration successful! You can now log in.');
-        navigate('/login'); // Giriş sayfasına yönlendir
     };
 
     return (
