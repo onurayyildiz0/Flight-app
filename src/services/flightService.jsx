@@ -17,7 +17,7 @@ export const getFlights = async () => {
             airline: flight.airline,
             price: parseFloat(flight.price),
             duration: parseInt(flight.duration, 10),
-            isActive: flight.active === 'TRUE',
+            isDirect: flight.isDirect === 'TRUE',
             seats: JSON.parse(flight.seats), // JSON string'i parse ediyoruz
         }));
     } catch (error) {

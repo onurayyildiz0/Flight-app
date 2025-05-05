@@ -1,72 +1,181 @@
+/* Genel Stil */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Ana Konteyner */
 .home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #f1f5f9;
-    padding-bottom: 5px;
-
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.home-container h1 {
-    font-size: 1.5rem;
-    /* Tailwind: text-2xl */
-    font-weight: bold;
-    /* Tailwind: font-bold */
-    margin-bottom: 1rem;
-    /* Tailwind: mb-4 */
-}
-
+/* Başlık */
 .home-forms {
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    /* Tailwind: gap-12 */
+    text-align: center;
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 20px;
 }
 
+/* Formlar */
 .search-form,
 .filter-form {
-    background-color: white;
-    /* Tailwind: bg-white */
-    padding: 24px;
-    /* Tailwind: p-6 */
+    background-color: #f9f9f9;
+    padding: 20px;
     border-radius: 8px;
-    /* Tailwind: rounded */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Tailwind: shadow-md */
-    margin-bottom: 1.5rem;
-    /* Tailwind: mb-6 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-.cart-container {
-    margin-top: 1.5rem;
-    /* Tailwind: mt-6 */
+.search-form .ant-form-item,
+.filter-form .ant-form-item {
+    margin-bottom: 15px;
 }
 
-.cart-container h2 {
-    font-size: 1.25rem;
-    /* Tailwind: text-xl */
-    font-weight: bold;
-    /* Tailwind: font-bold */
-    margin-bottom: 1rem;
-    /* Tailwind: mb-4 */
+.search-form button,
+.filter-form button {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.cart-container ul {
+.search-form button:hover,
+.filter-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Arama Sonuçları */
+ul {
     list-style: none;
     padding: 0;
 }
 
-.cart-container p {
-    font-weight: bold;
-    /* Tailwind: font-bold */
+ul li {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.flex-items-center-gap {
+ul li button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+ul li button:hover {
+    background-color: #218838;
+}
+
+/* Sepet */
+.cart-container {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container h2 {
+    margin-bottom: 15px;
+    color: #007bff;
+}
+
+.cart-container ul li {
     display: flex;
-    /* Tailwind: flex */
+    justify-content: space-between;
     align-items: center;
-    /* Tailwind: items-center */
-    gap: 3rem;
-    /* Tailwind: gap-12 */
+    margin-bottom: 10px;
+}
+
+.cart-container ul li button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-container ul li button:hover {
+    background-color: #c82333;
+}
+
+.cart-container p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: right;
+}
+
+.cart-container button {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Modal */
+.ant-modal {
+    border-radius: 8px;
+}
+
+.ant-modal-title {
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+.ant-modal-footer {
+    display: none;
+}
+
+.ant-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ant-list-item button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ant-list-item button:hover {
+    background-color: #0056b3;
 }

@@ -55,6 +55,7 @@ function Home({ isLoggedIn }) {
 
     const onFilter = (values) => {
         console.log('Filter Criteria:', values);
+        console.log('Flights Data:', flights);
 
         const results = flights.filter((flight) => {
             const matchesDirect = values.isDirect === undefined || flight.isDirect === values.isDirect;
@@ -182,7 +183,7 @@ function Home({ isLoggedIn }) {
                         onFinish={onFilter}
                         className="filter-form"
                     >
-                        <Form.Item label="Direct Flight" name="isDirect">
+                        <Form.Item label="Direct Flight" name="isDirect" initialValue={undefined}>
                             <Radio.Group>
                                 <Radio value={true}>Direct</Radio>
                                 <Radio value={false}>With Stopovers</Radio>
