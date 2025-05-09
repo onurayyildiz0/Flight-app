@@ -128,10 +128,11 @@ function Home({ isLoggedIn }) {
     return (
         <div>
 
+
             <div className="home-container">
                 <h1 className="home-forms">Search Flights</h1>
 
-                <div className='flex-items-center-gap'>
+                <div className='flex-forms'>
                     {/* Arama Formu */}
                     <Form
                         name="search"
@@ -271,13 +272,14 @@ function Home({ isLoggedIn }) {
                     <h2>Cart</h2>
                     <ul>
                         {cart.map((item, index) => (
-                            <li key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <li key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
                                 <span>
                                     Seat: {item.seatNumber}, Total Price: ${item.price}
                                 </span>
                                 <Button
+                                    style={{ width: '100px' }}
                                     type="text"
-                                    danger
+
                                     onClick={() => onRemoveSeat(item.seatNumber, item.flightId)}
                                 >
                                     Remove

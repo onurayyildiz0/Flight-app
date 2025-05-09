@@ -4,6 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css'; // CSS dosyasını içe aktar
+import { FaTicket } from "react-icons/fa6";
 
 function Navbar({ isLoggedIn, setIsLoggedIn }) {
     const navigate = useNavigate();
@@ -38,6 +39,9 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
                 <h4>Flight Automation</h4>
             </Link>
             <div className="actions ">
+
+
+
                 <Avatar className="avatar" size={32} icon={<UserOutlined />} />
                 {isLoggedIn ? (
                     // Kullanıcı giriş yaptıysa sadece Logout butonu göster
