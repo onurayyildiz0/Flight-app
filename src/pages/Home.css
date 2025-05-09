@@ -1,7 +1,7 @@
 /* Genel Stil */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
     margin: 0;
     padding: 0;
     color: #333;
@@ -10,52 +10,55 @@ body {
 /* Ana Konteyner */
 .home-container {
     max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Başlık */
 .home-forms {
     text-align: center;
-    font-size: 2rem;
-    color: #007bff;
-    margin-bottom: 20px;
+    font-size: 2.5rem;
+    color: #4a90e2;
+    margin-bottom: 30px;
+    font-weight: bold;
 }
 
 /* Formlar */
 .search-form,
 .filter-form {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    border: 1px solid #e0e0e0;
 }
 
 .search-form .ant-form-item,
 .filter-form .ant-form-item {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .search-form button,
 .filter-form button {
     width: 100%;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #4a90e2;
+    color: #ffffff;
     border: none;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 1rem;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .search-form button:hover,
 .filter-form button:hover {
-    background-color: #0056b3;
+    background-color: #357abd;
+    transform: scale(1.02);
 }
 
 /* Arama Sonuçları */
@@ -65,95 +68,108 @@ ul {
 }
 
 ul li {
-    background-color: #f9f9f9;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 8px;
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    padding: 20px;
+    border-radius: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
 }
 
 ul li button {
-    background-color: #28a745;
-    color: #fff;
+    background-color: #5cb85c;
+    color: #ffffff;
     border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
+    padding: 10px 15px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 ul li button:hover {
-    background-color: #218838;
+    background-color: #4cae4c;
+    transform: scale(1.05);
 }
 
 /* Sepet */
 .cart-container {
-    margin-top: 20px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
 }
 
 .cart-container h2 {
-    margin-bottom: 15px;
-    color: #007bff;
+    margin-bottom: 20px;
+    color: #4a90e2;
+    font-weight: bold;
 }
 
 .cart-container ul li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
 }
 
 .cart-container ul li button {
-    background-color: #dc3545;
-    color: #fff;
+    background-color: #d9534f;
+    color: #ffffff;
     border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
+    padding: 10px 15px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .cart-container ul li button:hover {
-    background-color: #c82333;
+    background-color: #c9302c;
+    transform: scale(1.05);
 }
 
 .cart-container p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     text-align: right;
+    color: #333;
 }
 
 .cart-container button {
     width: 100%;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #4a90e2;
+    color: #ffffff;
     border: none;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 1rem;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .cart-container button:hover {
-    background-color: #0056b3;
+    background-color: #357abd;
+    transform: scale(1.02);
 }
 
 /* Modal */
 .ant-modal {
-    border-radius: 8px;
+    border-radius: 12px;
+    padding: 20px;
 }
 
 .ant-modal-title {
-    font-size: 1.5rem;
-    color: #007bff;
+    font-size: 1.8rem;
+    color: #4a90e2;
+    font-weight: bold;
 }
 
 .ant-modal-footer {
@@ -164,18 +180,23 @@ ul li button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
 }
 
 .ant-list-item button {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #4a90e2;
+    color: #ffffff;
     border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
+    padding: 10px 15px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .ant-list-item button:hover {
-    background-color: #0056b3;
+    background-color: #357abd;
+    transform: scale(1.05);
 }

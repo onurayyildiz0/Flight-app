@@ -22,7 +22,13 @@ function Login({ setIsLoggedIn }) {
                 message.success('Login successful!');
                 setIsLoggedIn(true); // Kullanıcıyı giriş yapmış olarak işaretle
                 localStorage.setItem('loggedInRowId', user.row_id); // Kullanıcının row_id'sini kaydet
-                navigate('/pay'); // Ödeme sayfasına yönlendir
+
+                const cart = JSON.parse(localStorage.getItem('cart')) || []; // Sepeti localStorage'dan al
+                if (cart.length > 0) {
+                    navigate('/pay'); // Sepet doluysa ödeme sayfasına yönlendir
+                } else {
+                    navigate('/'); // Sepet boşsa ana sayfaya yönlendir
+                }
             } else {
                 message.error('Invalid username or password.');
             }

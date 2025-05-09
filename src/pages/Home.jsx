@@ -95,7 +95,7 @@ function Home({ isLoggedIn }) {
     };
 
     const onSelectSeat = (seat) => {
-        const isSeatAlreadyInCart = cart.some((item) => item.seatNumber === seat.seatNumber);
+        const isSeatAlreadyInCart = cart.some((item) => item.seatNumber === seat.seatNumber && item.flightId === selectedFlight.id);
         if (isSeatAlreadyInCart) {
             message.warning(`Seat ${seat.seatNumber} is already selected.`);
             return;
@@ -108,16 +108,22 @@ function Home({ isLoggedIn }) {
         const totalPrice = selectedFlight.price + seat.price; // Uçak fiyatı + koltuk fiyatı
 
         setSelectedSeat(seat);
-        setCart([...cart, { seatNumber: seat.seatNumber, price: totalPrice }]); // Toplam fiyatı sepete ekle
+        setCart([...cart, { seatNumber: seat.seatNumber, price: totalPrice, flightId: selectedFlight.id }]); // Toplam fiyatı sepete ekle
+
+        const updatedSeats = selectedFlight.seats.map((s) =>
+            s.seatNumber === seat.seatNumber ? { ...s, isAvailable: false } : s
+        );
+
+        setSelectedFlight({ ...selectedFlight, seats: updatedSeats });
+
         setSeatModalVisible(false);
     };
-    const onRemoveSeat = (seatNumber) => {
-        //Bu fonksiyon, sepetten koltuk kaldırma işlemini gerçekleştirir.!koltuk eklemedeki kaldırma işlemi değil
-        setCart(cart.filter((item) => item.seatNumber !== seatNumber));
+
+
+    const onRemoveSeat = (seatNumber, flightId) => {
+        setCart(cart.filter((item) => item.seatNumber !== seatNumber || item.flightId !== flightId));
         message.info(`Seat ${seatNumber} has been removed from the cart.`);
     };
-
-
 
     return (
         <div>
@@ -137,8 +143,23 @@ function Home({ isLoggedIn }) {
                             label="Departure"
                             name="departure"
                             rules={[{ required: true, message: 'Please input the departure location!' }]}
+
                         >
-                            <Input placeholder="Enter departure location" />
+                            <Select
+                                placeholder="Select or type departure location"
+                                showSearch
+                                allowClear
+                                filterOption={(input, option) =>
+                                    option?.value.toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {Array.from(new Set(flights.map((flight) => flight.departure))).map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            {/* <Input placeholder="Enter departure location" /> */}
                         </Form.Item>
 
                         <Form.Item
@@ -146,7 +167,20 @@ function Home({ isLoggedIn }) {
                             name="arrival"
                             rules={[{ required: true, message: 'Please input the arrival location!' }]}
                         >
-                            <Input placeholder="Enter arrival location" />
+                            <Select
+                                placeholder="Select or type arrival location"
+                                showSearch
+                                allowClear
+                                filterOption={(input, option) =>
+                                    option?.value.toLowerCase().includes(input.toLowerCase())
+                                }
+                            >
+                                {Array.from(new Set(flights.map((flight) => flight.arrival))).map((city) => (
+                                    <Select.Option key={city} value={city}>
+                                        {city}
+                                    </Select.Option>
+                                ))}
+                            </Select>
                         </Form.Item>
 
                         <Form.Item
@@ -244,7 +278,7 @@ function Home({ isLoggedIn }) {
                                 <Button
                                     type="text"
                                     danger
-                                    onClick={() => onRemoveSeat(item.seatNumber)}
+                                    onClick={() => onRemoveSeat(item.seatNumber, item.flightId)}
                                 >
                                     Remove
                                 </Button>
