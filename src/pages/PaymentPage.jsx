@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
 import { getCards } from '../services/cardService';
 import { useNavigate } from 'react-router-dom';
 import { fetchUsers } from '../services/userService';
+import { updateFlight } from '../services/flightService';
 import './PaymentPage.css';
 
 function PaymentPage() {
+
+    const location = useLocation();
+    const cart = location.state?.cart || []; // Eğer cart yoksa boş bir dizi kullan
+    const flights = location.state?.flights || []; // Eğer flig
+    console.log('Cart:', cart);
+    console.log('Flights:', flights);
+
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(false);
     const [userEmail, setUserEmail] = useState('');
@@ -56,7 +65,7 @@ function PaymentPage() {
     }, []);
 
     // Ödeme işlemi
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         console.log('Form Values:', values);
         console.log('Fetched Cards:', cards);
 
@@ -71,17 +80,36 @@ function PaymentPage() {
             );
         });
 
-        setTimeout(() => {
+        setTimeout(async () => {
             setLoading(false);
             if (isValidCard) {
-                message.success(`Payment successful! A confirmation email has been sent to ${userEmail}.`);
-                navigate('/'); // Ödeme başarılı olduğunda ana sayfaya yönlendir
+                try {
+                    // Sepetteki her uçuş için koltuk durumunu güncelle
+                    for (const item of cart) {
+                        const flight = flights.find((f) => f.id === item.flightId);
+
+                        if (!flight) {
+                            console.error(`Flight with ID ${item.flightId} not found in flights.`);
+                            continue; // Eğer uçuş bulunamazsa bir sonraki döngüye geç
+                        }
+
+                        const updatedSeats = flight.seats.map((s) =>
+                            s.seatNumber === item.seatNumber ? { ...s, isAvailable: false } : s
+                        );
+
+                        await updateFlight(item.flightId, updatedSeats, flight);
+                    }
+                    message.success(`Payment successful! A confirmation email has been sent to ${userEmail}.`);
+                    navigate('/'); // Ödeme başarılı olduğunda ana sayfaya yönlendir
+                } catch (error) {
+                    console.error('Error updating seat availability:', error);
+                    message.error('An error occurred while updating seat availability.');
+                }
             } else {
                 message.error('Invalid card details. Please try again.');
             }
         }, 1000);
     };
-
     return (
         <div className="payment-container">
             <h1>Payment Page</h1>

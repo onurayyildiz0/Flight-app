@@ -175,42 +175,80 @@ ul li button:hover {
 }
 
 /* Modal */
+/* Genel Modal Tasarımı */
 .ant-modal {
-    border-radius: 12px;
-    padding: 20px;
+    max-width: 90%;
+    /* Modal genişliğini ekran boyutuna göre ayarla */
+    margin: 0 auto;
 }
 
-.ant-modal-title {
-    font-size: 1.8rem;
-    color: #4a90e2;
-    font-weight: bold;
-}
-
-.ant-modal-footer {
-    display: none;
-}
-
+/* Koltuk Listesi */
 .ant-list-item {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
+    justify-content: center;
+    /* Butonları ortala */
+    padding: 10px 0;
 }
 
-.ant-list-item button {
-    background-color: #4a90e2;
-    color: #ffffff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+/* Koltuk Butonları */
+.ant-btn {
+    min-width: 120px;
+    /* Buton genişliğini sabitle */
+    text-align: center;
 }
 
-.ant-list-item button:hover {
-    background-color: #357abd;
-    transform: scale(1.05);
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .home-container {
+        padding: 10px;
+        /* Mobil cihazlarda kenar boşluklarını azalt */
+    }
+
+    .flex-forms {
+        flex-direction: column;
+        /* Formları alt alta yerleştir */
+        gap: 10px;
+        /* Formlar arasında boşluk bırak */
+    }
+
+    .search-form,
+    .filter-form {
+        width: 100%;
+        /* Formları tam genişlik yap */
+    }
+
+    .cart-container {
+        padding: 10px;
+    }
+
+    .ant-modal {
+        max-width: 100%;
+        /* Mobil cihazlarda modal genişliğini tam yap */
+    }
+
+    .ant-list-item {
+        flex-direction: column;
+        /* Mobil cihazlarda butonları dikey hizala */
+        align-items: center;
+    }
+
+    .ant-btn {
+        width: 100%;
+        /* Butonları tam genişlik yap */
+        margin-bottom: 10px;
+        /* Butonlar arasında boşluk bırak */
+    }
+}
+
+/* Daha Küçük Ekranlar İçin */
+@media (max-width: 480px) {
+    .home-container h1 {
+        font-size: 1.5rem;
+        /* Başlık boyutunu küçült */
+    }
+
+    .ant-btn {
+        font-size: 0.9rem;
+        /* Buton yazı boyutunu küçült */
+    }
 }

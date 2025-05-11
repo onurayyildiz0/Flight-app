@@ -1,35 +1,29 @@
+/* Genel Navbar Stilleri */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #38bdf8;
-
-
+    background-color: #4a90e2;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
     padding: 16px 48px;
-
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
-
-
-
 
 .navbar h4 {
     color: white;
-
 }
 
 .navbar .actions {
     display: flex;
     align-items: center;
     gap: 16px;
-
     cursor: pointer;
-
 }
 
 .avatar {
-    background-color: #ef4444;
+    background-color: #38bdf8;
     /* Tailwind: bg-red-500 */
     border-radius: 50%;
     width: 32px;
@@ -42,14 +36,58 @@
 
 .navbar-title {
     text-decoration: none !important;
-
     color: inherit;
-
 }
 
 .navbar-title:hover,
 .navbar-title:focus,
 .navbar-title:active {
     text-decoration: none !important;
+}
 
+/* Hamburger Menü */
+.navbar-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 16px 24px;
+    }
+
+    .navbar .actions {
+        flex-direction: column;
+        background-color: #4a90e2;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: none;
+        /* Menü varsayılan olarak gizlenir */
+    }
+
+    .navbar .actions.active {
+        display: flex;
+        /* Menü aktif olduğunda görünür */
+    }
+
+    .navbar .actions .avatar {
+        display: none;
+        /* Mobil cihazlarda avatarı gizle */
+    }
+
+    .navbar .actions button {
+        margin: 10px auto;
+    }
+
+    .navbar-toggle {
+        display: block;
+        /* Hamburger menü görünür */
+    }
 }

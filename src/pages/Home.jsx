@@ -90,35 +90,53 @@ function Home({ isLoggedIn }) {
             return;
         }
 
-        // Kullanıcı giriş yapmışsa ödeme sayfasına yönlendir
-        navigate('/pay');
+
+        // Kullanıcı giriş yapmışsa ödeme sayfasına yönlendir ve kart bilgilerini props oalrak gönderir
+        navigate('/pay', { state: { cart, flights } });
     };
 
-    const onSelectSeat = (seat) => {
-        const isSeatAlreadyInCart = cart.some((item) => item.seatNumber === seat.seatNumber && item.flightId === selectedFlight.id);
+    const onSelectSeat = async (seat) => {
+        if (!seat.isAvailable) {
+            message.error(`Seat ${seat.seatNumber} is no longer available.`);
+            return;
+        }
+
+        const isSeatAlreadyInCart = cart.some(
+            (item) => item.seatNumber === seat.seatNumber && item.flightId === selectedFlight.id
+        );
         if (isSeatAlreadyInCart) {
             message.warning(`Seat ${seat.seatNumber} is already selected.`);
             return;
         }
 
-        if (selectedSeat) {
-            setCart(cart.filter((item) => item.seatNumber !== selectedSeat.seatNumber));
-        }
-
-        const totalPrice = selectedFlight.price + seat.price; // Uçak fiyatı + koltuk fiyatı
-
-        setSelectedSeat(seat);
-        setCart([...cart, { seatNumber: seat.seatNumber, price: totalPrice, flightId: selectedFlight.id }]); // Toplam fiyatı sepete ekle
-
         const updatedSeats = selectedFlight.seats.map((s) =>
             s.seatNumber === seat.seatNumber ? { ...s, isAvailable: false } : s
         );
 
-        setSelectedFlight({ ...selectedFlight, seats: updatedSeats });
+        const updatedFlight = { ...selectedFlight, seats: updatedSeats };
 
+        setSelectedSeat(seat);
+        try {
+            const flight = flights.find((f) => f.id === selectedFlight.id);
+            const seatFromBackend = flight.seats.find((s) => s.seatNumber === seat.seatNumber);
+
+            if (!seatFromBackend.isAvailable) {
+                message.error(`Seat ${seat.seatNumber} is no longer available.`);
+                return;
+            }
+
+            setCart([
+                ...cart,
+                { seatNumber: seat.seatNumber, price: seat.price, flightId: selectedFlight.id },
+            ]);
+            message.success(`Seat ${seat.seatNumber} has been added to your cart.`);
+        } catch (error) {
+            console.error('Error checking seat availability:', error);
+            message.error('An error occurred while checking seat availability.');
+        }
+        setSelectedFlight(updatedFlight);
         setSeatModalVisible(false);
     };
-
 
     const onRemoveSeat = (seatNumber, flightId) => {
         setCart(cart.filter((item) => item.seatNumber !== seatNumber || item.flightId !== flightId));
@@ -303,14 +321,21 @@ function Home({ isLoggedIn }) {
                 >
                     {selectedFlight && (
                         <List
-                            dataSource={selectedFlight.seats.filter((seat) => seat.isAvailable)}
+                            dataSource={selectedFlight.seats} // Tüm koltukları göster
                             renderItem={(seat) => (
-                                <List.Item>
+                                <List.Item style={{ justifyContent: 'center', paddingLeft: '20px' }}> {/* Butonları ortalamak için style eklendi */}
                                     <Button
-                                        type="primary"
-                                        onClick={() => onSelectSeat(seat)}
+                                        type={seat.isAvailable ? "primary" : "default"} // Duruma göre buton tipi
+                                        disabled={!seat.isAvailable} // Eğer koltuk doluysa butonu devre dışı bırak
+                                        onClick={() => {
+                                            if (seat.isAvailable) {
+                                                onSelectSeat(seat); // Koltuk müsaitse seçme işlemini yap
+                                            } else {
+                                                message.error(`Seat ${seat.seatNumber} is already taken.`); // Koltuk doluysa mesaj göster
+                                            }
+                                        }}
                                     >
-                                        {seat.seatNumber} - ${seat.price}
+                                        {seat.seatNumber} - ${seat.price} {seat.isAvailable ? "" : "(Unavailable)"}
                                     </Button>
                                 </List.Item>
                             )}

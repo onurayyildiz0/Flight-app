@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css'; // CSS dosyasını içe aktar
-import { FaTicket } from "react-icons/fa6";
 
 function Navbar({ isLoggedIn, setIsLoggedIn }) {
     const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false); // Hamburger menü için state
 
     const handleLogout = () => {
         setIsLoggedIn(false); // Kullanıcı oturumunu kapat
@@ -33,15 +33,21 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
         },
     ];
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen); // Hamburger menüyü aç/kapat
+    };
+
     return (
         <div className="navbar">
             <Link to="/" className="navbar-title">
                 <h4>Flight Automation</h4>
             </Link>
-            <div className="actions ">
 
+            <div className="navbar-toggle" onClick={toggleMenu}>
+                ☰
+            </div>
 
-
+            <div className={`actions ${isMenuOpen ? 'active' : ''}`}>
                 <Avatar className="avatar" size={32} icon={<UserOutlined />} />
                 {isLoggedIn ? (
                     // Kullanıcı giriş yaptıysa sadece Logout butonu göster

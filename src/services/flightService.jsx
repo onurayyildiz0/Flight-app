@@ -61,3 +61,30 @@ export const deleteFlight = async (rowId) => {
         throw error;
     }
 };
+
+
+export const updateFlight = async (flightId, updatedSeats, flight) => {
+    try {
+        // Veriyi belirtilen formata dönüştür
+        const formattedFlight = {
+            row_id: flightId, // row_id body içinde gönderiliyor
+            departure: flight.departure,
+            arrival: flight.arrival,
+            date: flight.date,
+            airline: flight.airline,
+            price: flight.price,
+            duration: flight.duration,
+            isDirect: flight.isDirect ? "TRUE" : "FALSE", // isDirect'i TRUE/FALSE stringine dönüştürüyoruz
+            seats: JSON.stringify(updatedSeats) // Seats alanını JSON string olarak gönderiyoruz
+        };
+
+        // PUT isteği ile uçuşu güncelle
+        const response = await axios.put(API_URL, formattedFlight);
+
+        console.log('API Response:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error updating flight:', error.response?.data || error.message);
+        throw error;
+    }
+};
