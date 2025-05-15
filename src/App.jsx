@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import AddFlight from './pages/AddFlight';
 import ManageFlights from './pages/ManageFlights';
 import ProtectedRoute from './pages/ProtectedRoute';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 
@@ -36,6 +37,7 @@ function App() {
           /> {/* Ödeme sayfası */}
           <Route path="/add-flight" element={<AddFlight />} />{/*Uçuş ekleme sayfası */}
           <Route path="/manage-flights" element={<ManageFlights />} />{/*Uçakları listeleme ve uçuşları silme sayfası */}
+          <Route path="*" element={<NotFound />} />
 
         </Routes>
       </Router>

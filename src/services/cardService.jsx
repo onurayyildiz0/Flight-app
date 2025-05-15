@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://v1.nocodeapi.com/meldaf01112/google_sheets/oPTudxrnKpOWJwpm?tabId=Cards';
+const API_URL = 'https://v1.nocodeapi.com/meldaf852/google_sheets/uGWgIuwdsgxqDbEV?tabId=Cards';
 
 
 export const getCards = async () => {

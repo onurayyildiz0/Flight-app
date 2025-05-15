@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, DatePicker, Select, message } from 'antd';
 import { addFlight } from '../services/flightService';
+import './AddFlight.css'; // CSS dosyasını içe aktar
 
 const { Option } = Select;
 
@@ -43,12 +44,13 @@ function AddFlight() {
     };
 
     return (
-        <div>
+        <div className="add-flight-container">
             <h1>Add New Flight</h1>
             <Form
                 name="addFlight"
                 layout="vertical"
                 onFinish={onFinish}
+                className="add-flight-form"
             >
                 <Form.Item
                     label="Departure"

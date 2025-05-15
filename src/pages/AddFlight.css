@@ -1,0 +1,87 @@
+/* Genel Sayfa Stilleri */
+.add-flight-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+}
+
+.add-flight-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #4a90e2;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Form Stilleri */
+.add-flight-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.add-flight-form .ant-form-item {
+    margin-bottom: 16px;
+}
+
+.add-flight-form .ant-input,
+.add-flight-form .ant-select-selector,
+.add-flight-form .ant-picker {
+    height: 40px;
+    border-radius: 6px;
+    border: 1px solid #d9d9d9;
+    transition: border-color 0.3s ease;
+}
+
+.add-flight-form .ant-input:focus,
+.add-flight-form .ant-select-selector:focus,
+.add-flight-form .ant-picker-focused {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.add-flight-form button {
+    background-color: #4a90e2;
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-flight-form button:hover {
+    background-color: #357abd;
+    transform: scale(1.02);
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .add-flight-container {
+        padding: 20px;
+    }
+
+    .add-flight-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .add-flight-form button {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .add-flight-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .add-flight-form button {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+}
